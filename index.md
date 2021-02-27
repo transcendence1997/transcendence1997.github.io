@@ -14,15 +14,18 @@ Welcome to my personal webpage! My name is Peifeng Zhu. I am currently a master 
 
 ## Courses
 
-Here are some selected professional coursed I've taken:
+Here are some selected course assignments I've completed(self-learned, ungraded):
 
-CS61BL Data Structures & Programming Methodology (self-learned, see my work here: [repo1](https://github.com/transcendence1997/cs61bl) [repo2](https://github.com/transcendence1997/cs61bl_gitlet))
+### CS61BL@UCB Data Structures & Programming Methodology:
+Gitlet project:
+[my implementation](https://github.com/transcendence1997/cs61bl_gitlet)
+[instructions](https://cs61bl.org/su18/projects/gitlet/)
 
-CSC2206 System Modeling and Analysis (Discrete Stochastic Processes, ongoing)
+### CS61C@UCB Great Ideas in Computer Architecture (Machine Structures):
+CPU project:
+[my implementation](https://github.com/transcendence1997/cs61c-proj3-2)
+[instructions](https://inst.eecs.berkeley.edu/~cs61c/su19/projects/proj3-2/)
 
-CSC2209 Computer Networks (ongoing)
-
-CSC2515 Introduction to Machine Learning (ongoing)
-
-CSC2556 Algorithms for Collective Decision Making (ongoing)
-
+### CS224n@Stanford Natural Language Processing with Deep Learning:
+Assignment 4 Neural Machine Translation:
+[my implementation(ongoing)](https://github.com/transcendence1997/cs224n-a4)
