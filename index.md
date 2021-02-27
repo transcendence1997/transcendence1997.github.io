@@ -44,6 +44,10 @@ CPU project:
 
 ### CS224n@Stanford Natural Language Processing with Deep Learning:
 
-Assignment 4 Neural Machine Translation:
+Assignment 4 Neural Machine Translation with sequence-to-sequence, attention, and subwords:
 
 [my implementation(ongoing)](https://github.com/transcendence1997/cs224n-a4)
+
+Assignment 5 Self-supervised learning and fine-tuning with Transformers:
+
+[my implementation(ongoing)](https://github.com/transcendence1997/cs224n-a5)
