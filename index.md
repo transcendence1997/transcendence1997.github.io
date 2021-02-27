@@ -10,7 +10,7 @@ LinkedIn: https://www.linkedin.com/in/peifeng-zhu-329a13121/
 
 ## Education
 
-Master of Science in Applied Computing @University of Toronto (2020 - present)
+Master of Science in Applied Computing @University of Toronto (ongoing)
 
 Bachelor of Engineering in Computer Science and Technology @Nankai University
 
