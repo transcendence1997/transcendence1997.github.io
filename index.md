@@ -34,12 +34,6 @@ Here are some selected course assignments I've completed(self-completed, ungrade
 
 [instructions](https://cs61bl.org/su18/projects/gitlet/)
 
-### CPU project (from CS61C@UCB Great Ideas in Computer Architecture (Machine Structures)):
-
-[my implementation](https://github.com/transcendence1997/cs61c-proj3-2)
-
-[instructions](https://inst.eecs.berkeley.edu/~cs61c/su19/projects/proj3-2/)
-
 ### Assignment 4 Neural Machine Translation with sequence-to-sequence and attention (from CS224n@Stanford Natural Language Processing with Deep Learning):
 
 [my implementation](https://github.com/transcendence1997/cs224n-a4)
