@@ -22,6 +22,8 @@ data analysis, prediction and decision making
 
 natural language processsing
 
+recommendation systems
+
 ## Selected Course Assignments
 
 Here are some selected course assignments I've completed(self-learned, ungraded):
