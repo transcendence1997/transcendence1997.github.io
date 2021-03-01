@@ -26,7 +26,7 @@ recommendation systems
 
 ## Selected Course Assignments
 
-Here are some selected course assignments I've completed(self-learned, ungraded):
+Here are some selected course assignments I've completed(self-completed, ungraded):
 
 ### Gitlet project (from CS61BL@UCB Data Structures & Programming Methodology):
 
