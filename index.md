@@ -1,13 +1,5 @@
 # Peifeng Zhu
 
-
-
-## Contact Info
-
-E-mail: peifengzhu@cs.toronto.edu
-
-LinkedIn: https://www.linkedin.com/in/peifeng-zhu-329a13121/
-
 ## Education
 
 Master of Science in Applied Computing @University of Toronto (ongoing)
@@ -37,3 +29,9 @@ Here are some selected course assignments I've completed(self-completed, ungrade
 ### Assignment 4 Neural Machine Translation with sequence-to-sequence and attention (from CS224n@Stanford Natural Language Processing with Deep Learning):
 
 [my implementation](https://github.com/transcendence1997/cs224n-a4)
+
+## Contact Info
+
+E-mail: peifengzhu@cs.toronto.edu
+
+LinkedIn: [Peifeng Zhu](https://www.linkedin.com/in/peifeng-zhu-329a13121/)
