@@ -32,7 +32,7 @@ Here are some selected course assignments I've completed (self-learned, ungraded
 
 ### Assignment 5 Self-supervised learning and fine-tuning with Transformers (from CS224n@Stanford Natural Language Processing with Deep Learning, Winter 2021):
 
-[my implementation](https://github.com/transcendence1997/cs224n-a5-2021)
+[my implementation (ongoing)](https://github.com/transcendence1997/cs224n-a5-2021)
 
 ## Contact Info
 
