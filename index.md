@@ -16,7 +16,7 @@ Master of Science in Applied Computing @University of Toronto (ongoing)
 
 Bachelor of Engineering in Computer Science and Technology @Nankai University
 
-## Selected Course Assignments
+## Selected Course Projects/Assignments
 
 Here are some selected course assignments I've completed (self-learned, ungraded):
 
