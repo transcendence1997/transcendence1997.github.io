@@ -26,10 +26,6 @@ Here are some selected course assignments I've completed (self-learned, ungraded
 
 [instructions](https://cs61bl.org/su18/projects/gitlet/)
 
-### Assignment 4 Neural Machine Translation with sequence-to-sequence and attention (from CS224n@Stanford Natural Language Processing with Deep Learning, Winter 2020):
-
-[my implementation](https://github.com/transcendence1997/cs224n-a4)
-
 ### Assignment 5 Self-supervised learning and fine-tuning with Transformers (from CS224n@Stanford Natural Language Processing with Deep Learning, Winter 2021):
 
 [my implementation](https://github.com/transcendence1997/cs224n-a5-2021)
