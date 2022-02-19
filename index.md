@@ -13,7 +13,7 @@
 9. MyBatis & MyBatis-Plus
 10. Vue
 11. Spring Boot
-12. Spring Cloud
+12. [Spring Security](./spring-security/spring-security.md)
 13. Linux
 14. Redis
 15. Git
