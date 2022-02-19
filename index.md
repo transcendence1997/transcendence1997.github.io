@@ -2,7 +2,7 @@
 
 ## 目录
 
-1. Java
+1. [Java](./java/index.md)
 2. HTML
 3. CSS
 4. JavaScript
@@ -17,5 +17,5 @@
 13. Linux
 14. Redis
 15. Git
-1. Elasticsearch
+16. Elasticsearch
 1. RabbitMQ
