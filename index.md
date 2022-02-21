@@ -18,4 +18,7 @@
 14. Redis
 15. Git
 16. Elasticsearch
-1. RabbitMQ
+17. RabbitMQ
+18. [操作系统](./os/os.md)
+19. [网络](./network/network.md)
+1. [数据库](./database/database.md)
