@@ -21,4 +21,4 @@
 17. RabbitMQ
 18. [操作系统](./os/os.md)
 19. [网络](./network/network.md)
-1. [数据库](./database/database.md)
+1. [设计模式](./design-pattern/design-pattern.md)
