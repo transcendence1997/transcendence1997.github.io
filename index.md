@@ -2,7 +2,7 @@
 
 ## 目录
 
-1. [Java](./java/index.md)
+1. [Java](./java/java.md)
 2. HTML
 3. CSS
 4. JavaScript
@@ -20,5 +20,3 @@
 16. Elasticsearch
 17. RabbitMQ
 18. [操作系统](./os/os.md)
-19. [网络](./network/network.md)
-1. [设计模式](./design-pattern/design-pattern.md)

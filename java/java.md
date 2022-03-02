@@ -104,3 +104,45 @@ JDK是Java程序开发工具包，包含JRE和开发人员使用的工具。
 - `Calendar.getInstance()`返回一个Calendar对象，Calendar对象可用`get(Calendar.YEAR)`获取指定日历字段的值，用`add(int field, int amount)`将指定的时间量添加或减去给定的日历字段，用`set(int year, int month, int date)`设置当前日历的年月日
 
 - `Throwable`是`Error`和`Exception`的父类，`Error`是严重问题，不需要处理；`Exception`表示程序本身可以处理的问题；`Exception`分为`RuntimeException`和非`RuntimeException`，`RuntimeException`在编译期是不检查的，出现问题后，需要我们会来修改代码；非`RuntimeException`编译期就必须处理，否则程序不能通过编译
+
+- 如果程序出现了问题，我们没有做任何的处理，最终JVM会做默认的处理：把异常的名称，异常原因及异常出现的位置等信息输出在了控制台，程序停止执行
+
+- try catch可以到catch中寻找匹配的异常类，找到后进行异常的处理，执行完毕后，程序还可以继续往下执行
+
+- 运行时异常（非受检异常）：RuntimeException类及其子类，无需显式处理，也可以和编译时异常一样处理；编译时异常（受检异常）：其他的异常，必须显式处理，否则无法通过编译
+
+- 并不是所有的情况我们都有权限进行异常处理，这是可以在方法的括号后面添加`throws 异常类名`抛出异常，在调用者中进行处理
+
+- `throw new Exception();`用来在方法体内抛出异常
+
+- List接口和Set接口继承自Collection接口，Collection的常用方法包括add，remove，contains，isEmpty（前面这些都返回boolean），clear（返回void），size，可通过iterator()遍历Collection
+
+- List的特有方法包括`void add(int index, E element)`, `E remove(int index)`, `E set(int index, E element)`, `E get(int index)`
+
+- iterator的next方法会先检查实际修改次数（ArrayList的成员变量）与预期修改次数（初始化iterator时的实际修改次数）是否相等，如果不相等，就抛出ConcurrentModificationException
+
+- List有一个`listIterator()`允许沿任一方向遍历列表，在迭代期间修改列表，并获取列表中迭代器的当前位置，特有方法包括previous, hasPrevious, add（这个方法会把实际修改值赋值给与其修改值）
+
+- Collection继承了Iterable，实现Iterable允许对象成为增强型for语句的目标，Iterable里面有个方法`iterator()`，增强for内部原理是一个Iterator迭代器，也就是说会有ConcurrentModificationException
+
+- LinkedList有一些特有功能：addFrist, addLast, getFirst, getLast, removeFirst, removeLast
+
+- Set不包含重复元素（遇到重复的元素不会加进去），没有带索引的方法，不能使用普通for循环遍历，可以用增强for循环遍历，对顺序不做保证
+
+- 哈希值是JDK根据对象的地址或者字符串或者数字算出来的int类型的数值，Object类中的`hashCode()`方法可以获取对象的哈希值，默认情况下，不同对象的哈希值是不相同的，String重写了`hashCode()`，不同String可能会有相同哈希值
+
+- LinkedHashSet由哈希表（保证元素不重复）和链表（保证元素有序，及元素的存储和取出顺序一致）实现，具有可预测的迭代次序
+
+- TreeSet元素有序，这里的顺序不是只存储和取出的顺序，而是按照一定的规则进行排序，具体排序方式取决于构造方法，`TreeSet()`根据元素自然顺序（让元素所属的类实现Comparable接口）进行排序，`TreeSet(Comparator comparator)`根据指定的比较器（元素不需要实现Comparable）进行排序，没有带索引的方法，不能使用普通for循环遍历，只能用增强for和iterator遍历
+
+- `Comparable`的使用：`public class Student implements Comparable<Student>`，重写`compareTo`，如果`compareTo`返回0会被TreeSet认为是重复元素
+
+- 用匿名内部类写Comparator: `new Comparator<Student>() {...}`，里面重写`public int compare(Student s1, Student s2)`
+
+- Collection不指定泛型默认类型为Object
+
+- 泛型类`public class Generic<T> {...}`
+
+- 泛型方法（假设类没有定义为泛型类）`public <T> void show(T t) {...}`，调用的时候直接`g.show(123);`类型会自动识别
+
+- 泛型接口`public interface Generic<T>`，其实现类`public class GenericImpl<T> implements Generic<T>`
