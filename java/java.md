@@ -1,20 +1,6 @@
-# Java基础
+# Java
 
-### JRE和JDK
-
-JRE = Java Runtime Environment，是Java程序的运行时环境，包含JVM和运行时所需要的核心类库。
-
-JVM保证了Java的跨平台性。
-
-我们想要**运行**一个已有的Java程序，那么只需安装JRE即可。
-
-JDK是Java程序开发工具包，包含JRE和开发人员使用的工具。
-
-开发工具：编译工具（javac.exe）、运行工具（java.exe）
-
-我们想要**开发**一个全新的Java程序，必须安装JDK。
-
-### 语法
+- JRE = Java Runtime Environment，是Java程序的运行时环境，包含JVM和运行时所需要的核心类库。JVM保证了Java的跨平台性。我们想要**运行**一个已有的Java程序，那么只需安装JRE即可。JDK是Java程序开发工具包，包含JRE和开发人员使用的工具。开发工具：编译工具（javac.exe）、运行工具（java.exe）；我们想要**开发**一个全新的Java程序，必须安装JDK。
 
 - switch语句：要加break，表达式可以是byte，short，int，char，枚举，String。
 
@@ -24,7 +10,7 @@ JDK是Java程序开发工具包，包含JRE和开发人员使用的工具。
 
 - 如果定义了构造方法，系统将不再提供无参构造方法。
 
-- String的构造方法：`String()`（创建空白字符串）, `String(char[] chs)`, `String(byte[] bys)`
+- String的构造方法：`String()`（创建空白字符串）, `String(char[] chs)`, `String(byte[] bys)`，`String(byte[] b, int offset, int length)`
 
 - 以双引号给出的字符串，无论在代码中出现几次，JVM都只会建立一个String对象，并在字符串池中维护
 
@@ -146,3 +132,152 @@ JDK是Java程序开发工具包，包含JRE和开发人员使用的工具。
 - 泛型方法（假设类没有定义为泛型类）`public <T> void show(T t) {...}`，调用的时候直接`g.show(123);`类型会自动识别
 
 - 泛型接口`public interface Generic<T>`，其实现类`public class GenericImpl<T> implements Generic<T>`
+
+- 类型通配符：`List<?>` 表示元素类型未知的List，他的元素可以匹配任何的类型，例如`List<?> list = new ArrayList<Integer>;`, `List<?> list = new ArrayList<Number>;`；`List<? extends Number>`表示的类型是Number或其子类型；`List<? super Number>`表示的类型是Number或者其父类型
+
+- 可变参数：
+
+  ```java
+  public static int sum(int... a) { //a其实是一个数组；如果一个方法有多个参数，包含可变参数，可变参数要放在最后
+      int s = 0;
+      for (int i : a) {
+          s += i;
+      }
+      return s;
+  }
+  ```
+
+- `Arrays.asList("hello", "world")`返回一个大小不可变（可以修改元素，不能添加或删除）的List；`List.of("hello", "world")`返回一个不能增删改的List；`Set.of("hello", "world")`返回一个不能增删的Set
+
+- Map的基本功能：`remove(Object key)`, `clear()`, `containsKey(Object key)`, `containsValue(Object value)`, `isEmpty()`, `size()`, `keySet()`返回Set（可用于遍历）, `values()`返回Collection, `entrySet()`返回Set<Map.Entry<K,V>>（可用于遍历），Map.Entry有`getKey()`和`getValue()`方法
+
+- Collections的常用方法`Collections.sort(List<T> list)`（可以有第二个参数Comparator）, `Collections.reverse(List<?> list)`, `Collections.shuffle(List<?> list)`，返回类型都是void
+
+- File是文件和目录路径名的抽象表示，构造方法：`File(String pathname)`, `File(String parent, String child)`, `File(File parent, String child)`
+
+- File创建功能：`createNewFile()`文件不存在时，创建新空文件（如果存在一个同名的文件夹，也会创建文件失败），如果上级目录不存在，会报异常；`mkdir()`创建目录；`mkdirs()`创建目录，包括任何必须但不存在的父目录，这三个方法都返回boolean
+
+- File判断和获取功能：`isDirectory()`, `isFile()`, `exists()`, `getAbsolutePath()`, `getPath()`（得到封装的路径）, `getName()`, `list()`返回该目录下的文件和目录，结果为`String[]`, `listFiles()`返回该目录下的文件和目录，结果为`File[]`
+
+- File的删除功能`delete()`删除该文件或目录，如果目录不是空文件夹，那么删除不成功
+
+- IO流分为字节流和字符流
+
+- InputStream，OutputStream是抽象类，其子类后缀为父类的名称
+
+- `FileOutputStream(String name)`创建文件输出流以指定的名称写入文件，它做了三件事情：调用系统功能创建文件，创建了字节输出流对象，让字节输出流对象指向创建好的文件，最后要调用`close()`关闭此输出流并释放于此流相关联的任何系统资源；`FileOutputStream(String name, boolean append)`可以实现追加写入
+
+- 字节流写数据的三种方式：`write(int b)`一次写一个字节数据，`write(byte[] b)`写一个字节数组数据（`"abc".getBytes()` 返回byte[]），`write(byte[] b, int off, int len)`从索引off开始写入len个字节
+
+- finally：在异常处理的时候提供finally块来执行所有清除操作，比如IO流中的释放资源，被finally控制的语句一定会执行，除非JVM退出
+
+- `FileInputStream`的读方法：`int read()`一次读一个字节，如果文件到达末尾，返回-1；`int read(byte[] b)`读取最多b.length个字节到该数组，返回实际读取的长度，如果文件到达末尾，返回-1；
+
+- `BufferedOutputStream(OutputStream out)`是缓冲输出流，通过设置这样的输出流，应用程序可以向底层输出流写入字节，而不必为写入的每个字节导致底层系统的调用，`BufferedInputStream(InputStream in)`是字节缓冲输入流，将创建一个内部缓冲区数组，当从流中读取或跳过字节时，内部缓冲区将根据需要从所包含的输入流中重新填充，一次很多字节；字节缓冲流仅提供缓冲区，而真正的读写数据还得依靠基本的字节流对象进行操作，操作方法名称与基本字节流对象一样；字节缓冲流可以节省时间
+
+- 汉字存储：GBK 2字节，UTF-8 3字节，汉字在存储的时候，无论选择哪种编码存储，第一个字节都是负数，`byte[] getBytes(String charsetName)`编码，`new String(byte[] b, String charsetName)`解码
+
+- 字符输入流的抽象类Reader，字符输出流的抽象类Writer，`osw = new OutputStreamWriter(OutputStream out, String charsetName)`创建字符输出流对象（字符集也可以不指定），`osw.write(String str)`；`isr = new InputStreamReader(InputStream in, String charsetName)`创建字符输入流对象，其方法`int read()`读取一个字符，返回值可强制转换为char
+
+- 字符流写数据5种方式：`write(int c)`, `write(char[] cbuf)`, `write(char[] cbuf, int off, int len)`, `write(String str)`, `write(String str, int off, int len)`
+
+- 字符输出流`close()`或`flush()`都会把缓冲区写入文件
+
+- 字符流读数据：`int read()`, `int read(char[] cbuf)`用法和字节流类似
+
+- `FileReader(String fileName)`继承自`InputStreamReader`, `FileWriter(String fileName)`继承自`OutputStreamWriter`，用法都类似
+
+- 字符缓冲流`BufferedReader(Reader in, int sz)`, `BufferedWriter(Writer out, int sz)`
+
+- 字符缓冲流的特有功能：`BufferedWriter`可用`void newLine()`写一行行分隔符，`BufferedReader`可用`String readLine()`读一行文字，结果不包含行终止符，如果文件到达结尾则返回null
+
+- `File`的`listFiles()`方法可以获取该目录下所有文件，返回`File[]`
+
+- IO异常处理的改进方案：
+
+  ```java
+  try (FileWriter fr = new FileWriter("x.txt"); 
+       FileWriter fw = new FileWriter("xx.txt")) {
+      char[] chs = new char[1024];
+      int len;
+      while ((len = fr.read(chs)) != -1) {
+          fw.write(chs, 0, len);
+      }
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+  ```
+
+- System类中有两个静态成员变量：`public static final InputStream in`是标准输入流，对应于键盘输入或由主机环境或用户指定的另一个输入源，`public static final PrintStream out`是标准输出流，对应于显示输出或由主机环境或用户指定的另一个输出目标，`PrintStream`继承了`OutputStream`
+
+- ```java
+  InputStreamReader isr = new InputStreamReader(System.in); //把字节流转为字符流，实现从键盘读取字符
+  BufferedReader br = new BufferedReader(isr); //用字符缓冲流一次从键盘读取一行数据
+  ```
+
+- `Scanner sc = new Scanner(System.in);`可以比较方便的实现键盘输入
+
+- 字节打印流`PrintStream`，字符打印流`PrintWriter`，打印流只负责输出数据，不负责读取数据，有自己特有的方法；
+
+- `PrintStream(String fileName)`的特有方法有`print()`和`println()`，它使用`write(97)`和`print(97)`一个输出a，一个输出97
+
+- `PrintWriter(String fileName)或者PrintWriter(Writer out, boolean autoFlush)`的特有方法有`print()`和`println()`，如果`autoFlush`为真，则`println`, `printf`, `format`方法会刷新输出缓冲区
+
+- 对象序列化就是将对象保存到磁盘中，或在网络中传输对象，这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息，字节序列写到文件之后，相当于文件中持久保存了一个对象的信息，反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化
+- `ObjectOutputStream(OutputStream out)`使用方法`void writeObject(Onject obj)`将指定的对象（必须实现Serializable接口）写入
+- Serializable是一个标记接口，实现该接口，不需要重写任何方法
+- `ObjectInputStream(InputStream in)`使用方法`Object readObject()`读取一个对象
+- 用对象序列化流序列化一个对象后，加入修改了对象所属类文件，读取数据会出问题，抛出InvalidClassException异常；可以给该类加上`private static final long serialVersionUID = 42L;`来解决此问题；不想被序列化的成员变量可以加`transient`修饰
+- `Properties`是一个Map体系的集合类，可以保存到流中或从流中加载，它的特有方法有`Object setKey(String key, String value)`, `String getProperty(String key)`, `Set<String> stringPropertyNames()`
+- `Properties`和IO流结合的方法：`void load(InputStream inStream)`, `void load(Reader reader)`, `void store(OutputStream out, String comments)`, `void store(Writer writer, String comments)`
+- 定义一个类继承`Thread`类，重写`run()`方法，但是要用`start()`方法启动线程（该方法用JVM调用`run()`方法），才能实现多线程
+- `Thread`类可用`setName(String name)`和`getName()`设置和查看名称
+- `Thread`类有一个静态方法`Thread currentThread()`返回当前正在执行的线程对象，可获得main方法所在的线程
+- Java使用抢占式调度模型（优先级高的线程获取相对较多的CPU时间片），`Thread`类中的方法`getPriority()`和`setPriority(int newPriority)`可以设置和获取线程优先级，`MIN_PROORITY=1`, `MAX_PRIORITY=10`，默认优先级为5
+- `static void sleep(long millis)`使当前正在执行的线程暂停执行指定的毫秒数，`void join()`等待这个线程死亡，`void setDaemon(boolean on)`将此线程标记为守护线程，当运行的线程都是守护线程时，JVM将退出
+- sleep使得线程从运行进入阻塞状态，sleep结束后从阻塞转为就绪
+
+- 多线程的另一种实现方式：定义一个MyRunnable类实现Runnable接口并重写run接方法，用一个MyRunnable类的对象作为创建Thread类对象的构造方法的参数，同一个MyRunnable类对象可以在不同Thread的构造中使用
+
+- 相比于继承Thread类，实现Runnable有如下好处：避免了Java单继承的局限性，适合多个相同程序的代码去处理同一个资源的情况，把线程和程序的代码、数据有效分离，较好的体现了面向对象的设计思想
+
+- 同步代码块格式：
+
+  ```java
+  synchronized(任意对象作为锁) {
+  	多条语句操作共享数据的代码
+  }
+  ```
+
+- 同步方法：`private synchronized void method()`，它的锁对象是`this`
+
+- 同步静态方法：`static synchronized void method()`，它的锁对象是`类名.class`
+
+- 线程安全的类包括：StringBuffer，Vector，Hashtable，他们的方法加了synchronized，但StringBuilder，ArrayList，HashMap的方法没有加synchronized，因此是线程不安全的。
+
+- `Collections.synchronizedList(new ArrayList<String>())`返回一个线程安全的List
+
+- `Lock`接口提供了方法`lock()`和`unlock()`来获得锁和释放锁，`ReentrantLock`是`Lock`的实现类，为了防止代码块出问题，可以使用：
+
+  ```java
+  try {
+  	lock.lock();
+      代码
+  } finally {
+      lock.unlock();
+  }
+  ```
+
+- `Object`类有一些方法：`void wait()`导致当前线程等待，直到另一个线程调用该对象的`notify()`方法或`notifyAll()`方法，`void notify()`唤醒正在等待对象监视器的单个线程，`void notifyAll()`唤醒正在等待对象监视器的所有线程。使用`wait`的方法应该为`syschronized`
+
+- 网络编程三要素：IP地址，端口号，协议
+
+- `InetAddress`类表示IP地址，使用静态方法`getByNmae(String host)`（参数可以为主机名，也可以为IP地址字符串）得到该类的一个对象，使用`getHostName()`获取此IP地址的主机名，使用`getHostAddress()`返回此IP地址字符串
+
+- UDP发送数据步骤：创建`DatagramSocket()`，创建`DatagramPacket(byte[] buf, int length, InetAddress address, int port)`，调用`DatagramSocket`的方法`void send(DatagramPacket p)`发送数据，调用`DatagramSocket`的方法`void close()`关闭发送端
+
+- UDP接收数据步骤：创建`DatagramSocket(int port)`，创建`DatagramPacket(byte[] buf, int length)`用于接收数据，调用`DatagramSocket`对象的`void receive(DatagramPacket p)`接收数据，调用`DatagramPacket`的`byte[] getData()`和`int getLength()`得到数据，调用`DatagramSocket`的方法`void close()`关闭发送端。
+
+- TCP发送数据：创建客户端Socket对象`Socket(InetAddress address, int port)`，用Socket的`OutputStream getOutputStream()`方法获取输出流，用OutputStream的`write()`方法写数据，最后用`Socket`的`close()`
+
+- TCP接收数据：创建服务端Socket对象`ServerSocket(int port)`，用`ServerSocket`的`Socket accept()`方法侦听要连接到此套接字并接受它，用`Socket`的`InputStream getInputStream()`方法获取输入流，用`InputStream`的`int read(byte[] b)`方法读数据，最后关闭`Socket`和`ServerSocket`对象释放资源
