@@ -224,17 +224,29 @@
 - `PrintWriter(String fileName)或者PrintWriter(Writer out, boolean autoFlush)`的特有方法有`print()`和`println()`，如果`autoFlush`为真，则`println`, `printf`, `format`方法会刷新输出缓冲区
 
 - 对象序列化就是将对象保存到磁盘中，或在网络中传输对象，这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息，字节序列写到文件之后，相当于文件中持久保存了一个对象的信息，反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化
+
 - `ObjectOutputStream(OutputStream out)`使用方法`void writeObject(Onject obj)`将指定的对象（必须实现Serializable接口）写入
+
 - Serializable是一个标记接口，实现该接口，不需要重写任何方法
+
 - `ObjectInputStream(InputStream in)`使用方法`Object readObject()`读取一个对象
+
 - 用对象序列化流序列化一个对象后，加入修改了对象所属类文件，读取数据会出问题，抛出InvalidClassException异常；可以给该类加上`private static final long serialVersionUID = 42L;`来解决此问题；不想被序列化的成员变量可以加`transient`修饰
+
 - `Properties`是一个Map体系的集合类，可以保存到流中或从流中加载，它的特有方法有`Object setKey(String key, String value)`, `String getProperty(String key)`, `Set<String> stringPropertyNames()`
+
 - `Properties`和IO流结合的方法：`void load(InputStream inStream)`, `void load(Reader reader)`, `void store(OutputStream out, String comments)`, `void store(Writer writer, String comments)`
+
 - 定义一个类继承`Thread`类，重写`run()`方法，但是要用`start()`方法启动线程（该方法用JVM调用`run()`方法），才能实现多线程
+
 - `Thread`类可用`setName(String name)`和`getName()`设置和查看名称
+
 - `Thread`类有一个静态方法`Thread currentThread()`返回当前正在执行的线程对象，可获得main方法所在的线程
+
 - Java使用抢占式调度模型（优先级高的线程获取相对较多的CPU时间片），`Thread`类中的方法`getPriority()`和`setPriority(int newPriority)`可以设置和获取线程优先级，`MIN_PROORITY=1`, `MAX_PRIORITY=10`，默认优先级为5
+
 - `static void sleep(long millis)`使当前正在执行的线程暂停执行指定的毫秒数，`void join()`等待这个线程死亡，`void setDaemon(boolean on)`将此线程标记为守护线程，当运行的线程都是守护线程时，JVM将退出
+
 - sleep使得线程从运行进入阻塞状态，sleep结束后从阻塞转为就绪
 
 - 多线程的另一种实现方式：定义一个MyRunnable类实现Runnable接口并重写run接方法，用一个MyRunnable类的对象作为创建Thread类对象的构造方法的参数，同一个MyRunnable类对象可以在不同Thread的构造中使用
@@ -278,6 +290,115 @@
 
 - UDP接收数据步骤：创建`DatagramSocket(int port)`，创建`DatagramPacket(byte[] buf, int length)`用于接收数据，调用`DatagramSocket`对象的`void receive(DatagramPacket p)`接收数据，调用`DatagramPacket`的`byte[] getData()`和`int getLength()`得到数据，调用`DatagramSocket`的方法`void close()`关闭发送端。
 
-- TCP发送数据：创建客户端Socket对象`Socket(InetAddress address, int port)`，用Socket的`OutputStream getOutputStream()`方法获取输出流，用OutputStream的`write()`方法写数据，最后用`Socket`的`close()`
+- TCP发送数据：创建客户端Socket对象`Socket(InetAddress address, int port)`，用Socket的`OutputStream getOutputStream()`方法获取输出流，用OutputStream的`write()`方法写数据，用Socket的方法`public void shutdownOutput()`禁用此Socket的输出流（任何先前写入的数据将被发送，随后是TCP的正常连接中止序列），用Socket的`InputStream getInputStream()`方法获取输入流（读取服务端的反馈数据），最后用Socket的`close()`
 
-- TCP接收数据：创建服务端Socket对象`ServerSocket(int port)`，用`ServerSocket`的`Socket accept()`方法侦听要连接到此套接字并接受它，用`Socket`的`InputStream getInputStream()`方法获取输入流，用`InputStream`的`int read(byte[] b)`方法读数据，最后关闭`Socket`和`ServerSocket`对象释放资源
+- TCP接收数据：创建服务端Socket对象`ServerSocket(int port)`，用`ServerSocket`的`Socket accept()`方法侦听要连接到此套接字并接受它，用`Socket`的`InputStream getInputStream()`方法获取输入流，用`InputStream`的`int read(byte[] b)`方法读数据（读数据的方法是阻塞式的，只要没读到就一直等待），用`Socket`的`OutputStream getOutnputStream()`方法获取输出流（反馈数据给客户端），最后关闭`Socket`和`ServerSocket`对象释放资源
+
+- Lambda表达式的标准格式：`(形式参数)->{代码块}`，参数的类型可以省略；如果参数只有一个，小括号也能省略；如果代码块语句只有一条，那么大括号、分号、return（如果有）可以省略；如果方法带返回值
+
+- Lambda表达式的使用前提：有一个接口，接口中有且仅有一个抽象方法；必须有上下文环境，才能推导出Lambda对应的接口（根据局部变量的赋值得知Lambda对应的接口，或根据调用方法的参数得知Lambda对应的接口）
+
+- 匿名内部类编译之后会产生一个单独的`.class`字节码文件；但Lambda表达式没有一个单独的`.class`字节码文件，它对应的字节码会在运行的时候动态生成
+
+- 接口中的默认方法（Java 8）：`public default void method() {}`，public可省略；默认方法不是抽象方法，不强制被重写，但是可以被重写，重写的时候去掉default关键字
+
+- 接口中的静态方法（Java 8）：`public static void method() {}`，public可省略；不可以用接口实现类或实现类对象调用静态方法，只能用接口名调用
+
+- 接口中的私有方法（Java 9）：`private void method() {}`或`private static void method() {}`，可将默认方法或静态方法中相同的代码段放到私有方法中，默认方法可以调私有方法和私有静态方法，但静态方法只能调私有静态方法
+
+- 方法引用符`::`所在的表达式称为方法引用，用来简化Lambda表达式（可推导就是可省略），
+
+- 引用类方法`类名::静态方法`，Lambda表达式被类方法替代的时候，他的形式参数全部传递给静态方法作为参数
+
+- 引用对象的实例方法`对象::成员方法`，Lambda表达式被对象的实例方法替代的时候，它的形式参数全部传递给该方法作为参数
+
+- 引用类的实例方法`类名::成员方法`，Lambda表达式被类的实例方法替代的时候，它的第一个参数作为调用者，后面的参数全部传递给该方法作为参数
+
+- 引用构造器`类名::new`，Lambda表达式被构造器替代的时候，它的形式参数全部传递给构造器作为参数
+
+- 函数式接口：有且仅有一个抽象方法的接口，注解`@FunctionalInterface`加在接口定义之上就可以限制该接口为函数式接口
+
+- `Runnable`是一个函数式接口，`Comparator<T>`是一个函数式接口
+
+- 函数式接口`Supplier<T>`的方法`T get()`
+
+- 函数式接口`Consumer<T>`的方法`void accept(T t)`对给定的参数执行此操作，还有个默认方法`default Consumer<T> andThen(Consumer after)`返回一个组合的Consumer，依次执行此操作，然后执行after操作（`cons1.andThen(cons2).accept("abc")`会依次调用cons1和cons2的accept方法对字符串进行操作）
+
+- 函数式接口`Predicate<T>`的方法`boolean test(T t)`，还有几个默认方法`default Predicate<T> negate()`，`default Predicate<T> and(Predicate other)`（短路），`default Predicate<T> or(Predicate other)`（短路）
+
+- 函数式接口`Function<T, R>`的方法`R apply(T t)`，还有默认方法`default <V> Function andThen(Function after)`
+
+- Stream流的使用：1.生成流：通过数据源（集合、数组等）生成流；2.中间操作：一个流后面可以跟随零个或多个中间操作，其目的主要是打开流，做出某种程度的数据过滤/映射，然后返回一个新流，交给下一个操作使用；3.终结操作：一个流只能有一个终结操作，这必定是流的最后一个操作
+
+- Stream流的生成方式：Collection体系的集合用默认方法`default Stream<E> stream()`，数组用静态方法`Stream.of(T... values)`
+
+- Stream流的中间操作：`Stream<T> filter(Predicate predicate)`用于对流中的数据进行过滤；`Stream<T> limit(long maxSize)`返回此流中的元素组成的流，截取前指定参数个数的数据；`Stream<T> skip(long n)`跳过指定参数个数的数据，返回由该流的剩余元素组成的流；`Stream<T> distinct()`返回由该流的不同元素（根据`equals`）组成的流；`static <T> Stream<T> concat(Stream a, Stream b)`合并两个流；`Stream<T> sorted(Comparator comparator)`根据comparator（可省略）进行排序；`<R> Stream<R> map(Function mapper)`将给定函数应用于此流元素；`IntStream mapToInt(ToIntFunction mapper)`将给定函数应用于此流元素（`ToIntFunction`接口中的方法`int applyAsInt(T value)`，`IntStream`有一个方法`int sum()`返回此流中元素之和）
+
+- Stream流的终结操作：`void forEach(Consumer action)`对此流中每个元素执行操作；`long count()`返回此流中的元素数
+
+- Stream流的收集操作：`R collect(Collector collector)`可以把流中的数据收集到集合中
+
+- 工具类`Collectors`提供了具体的收集方式：`public static <T> Collector toList()`把元素收集到List集合中，`public static <T> Collector toSet()`把元素收集到Set集合中，`public static Collector toMap(Function keyMapper, Function valueMapper)`把元素收集到List集合中
+
+- 当程序要使用某个类时，如果该类还未被加载到内存中，则系统会通过类的加载，类的连接，类的初始化三个步骤来对类进行初始化，如果不出现意外情况，JVM将会连续完成这三个步骤。
+
+- 类的加载：就是指将class文件读入内存，并为之创建一个java.lang.Class对象，任何类被使用时，系统都会为之建立一个java.lang.Class对象
+
+- 类的连接：验证阶段：用于检验被加载的类是否有正确的内部结构，并和其他类协调一致；准备阶段：负责为类的类变量分配内存，并设置默认初始化值；解析阶段：将类的二进制数据中的符号引用替换为直接引用
+
+- 类的初始化：在该阶段，主要就是对类变量进行初始化
+
+- 类的初始化步骤：假如类还未被加载和连接，则程序先加载并连接该类；假如该类的直接父类还未被初始化，则先初始化其直接父类；加入类中有初始化语句，则系统依次执行这些初始化语句（在执行第二个步骤时，系统对直接父类的初始化步骤也遵循初始化步骤1-3）
+
+- 类的初始化时机：创建类的实例；调用类的类方法；访问类或者接口的类变量，或者为该类变量赋值；使用反射方式强制创建某个类或接口对应的java.lang.Class对象；初始化某个类的子类；直接使用java.exe命令来运行某个主类
+
+- 类加载器的作用：将.class文件加载到内存中，并为之生成对应的java.lang.Class对象
+
+- JVM的类加载机制：全盘负责（当一个类加载器负责加载某个Class时，该Class所依赖的引用和引用的其他Class也将由该类加载器负责载入，除非显式使用另一个类加载器来载入），父类委托（当一个类加载器负责加载某个Class时，先让父类加载器试图加载该Class，只有在父类加载器无法加载该类时才尝试从自己的类路径中加载该类），缓存机制（保证所有加载过的Class都会被缓存，当程序需要使用某个Class对象时，类加载器先从缓存区中搜索该Class，只有当缓存区中不存在该Class对象时，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存储到缓存区）
+
+- ClassLoader是负责加载类的对象；Java运行时具有以下内置类加载器：Bootstrap class loader（虚拟机的内置类加载器，通常表示为null，并且没有父null），Platform class loader（平台类加载器，可以看到所有平台类，平台类包括由平台类加载器或其祖先定义的Java SE平台API，其实现类和JDK特定的运行时类），System class loader（应用程序类加载器，通常用于定义应用程序类路径，模块路径和JDK特定工具上的类）
+
+- 类加载器的继承关系：System的父加载器为Platform，而Platform的父加载器为Bootstrap
+
+- ClassLoader中两个方法：`static ClassLoader getSystemClassLoader()`返回用于委派的系统类加载器，`ClassLoader getParent()`返回父类加载器进行委派
+
+- Java反射机制：在运行时去获取一个类的变量信息和方法信息，然后通过获取到的信息来创建对象，调用方法的一种机制。由于这种动态性，可以极大地增强程序的灵活性，程序不用在编译期就完成确定，在运行期仍然可以扩展
+
+- 获取Class类对象的三种方式：`Student.class`, `new Student().getClass()`, `Class.forName(String className)`（该字符串参数的值是某个类的全路径，也就是完整包名的路径）
+
+- 反射获取构造方法并使用：Class的方法`Constructor<?>[] getConstructors()`返回public的构造方法，`Constructor<?>[] getDeclaredConstructors()`返回所有的构造方法，`Constructor<T> getConstructors(Class<?>... parameterTypes)`返回指定的public构造方法，`Constructor<T> getDeclaredConstructors(Class<?>... parameterTypes)`返回指定的构造方法；使用`Constructor<T>`的`T newInstance(Obj... initargs)`可使用此构造函数；使用`Constructor`的`public void setAccessible(boolean flag)`（值为true时取消访问检查）可使用私有构造方法。
+
+- 反射获取成员变量并使用：Class的方法`Field[] getFields()`返回所有公共成员变量，`Field[] getDeclaredFields()`返回所有成员变量，`Field getField(String name)`返回指定的公共成员变量，`Field getDeclaredField(String name)`返回指定的成员变量；Field的方法`void set(Object obj, Object value)`将指定的对象中由此Field对象表示的字段设置为指定的值；使用`Field`的`public void setAccessible(boolean flag)`（值为true时取消访问检查）可使用私有成员变量。
+
+- 反射获取成员方法并使用：Class的方法`Method[] getMethods()`返回公共成员方法（包括继承过来的），`Method[] getDeclaredMethods()`返回所有成员方法，`Method getMethod(String name, Class<?>... parameterTypes)`返回指定的公共成员方法，`Method getDeclaredMethod(String name, Class<?>... parameterTypes)`返回指定的成员方法；Method的方法`Object invoke(Object obj, Object... args)`在指定对象上调用此方法，传入指定的参数；使用`Method`的`public void setAccessible(boolean flag)`（值为true时取消访问检查）可使用私有成员方法。
+
+- 一个项目包含多个模块，一个模块包含多个包，一个包中包含多个类和接口，模块相互独立，应用程序可根据需要加载必须的模块
+
+- 在模块的src目录下新建一个名为module-info.java的描述性文件，该文件专门定义模块名，访问权限，模块依赖等信息，描述性文件中使用模块导出和模块依赖来进行配置并使用
+
+- 模块中所有未导出的包都是模块私有的，他们不能在模块外被访问；模块导出格式：`exports 包名;`
+
+- 一个模块要访问其他的模块，必须明确指定依赖哪些模块，未明确指定依赖的模块不能访问；模块依赖格式：`requires 模块名;`（写模块名报错，需要按下Alt+Enter提示，然后选择模块依赖）
+
+- 模块服务的使用步骤：
+
+  - 在myOne模块下创建一个包com.itheima_03，在该包下提供一个接口MyService，接口中定义一个抽象方法`void service();`
+
+  - 在包com.itheima_03下创建一个包impl，在该包下提供两个实现类Itheima和Czxy
+
+  - 在myOne这个模块下的描述文件中添加如下配置：`exports com.itheima_03;`, `provides MyService with Itheima;`（指定MyService的服务实现类是Itheima）
+
+  - 在myTwo这个模块下的描述性文件中添加如下配置：`uses MyService;`（声明服务接口）
+
+  - 在myTwo这个模块的类中使用MyService接口提供的服务：
+
+    ```java
+    ServiceLoader<MyService> myServices = ServiceLoader.load(MyService.class);
+    
+    for (MyService my : myServices) {
+    	my.service();//会调用Itheima类的实现
+    }
+    ```
+
+    
+
