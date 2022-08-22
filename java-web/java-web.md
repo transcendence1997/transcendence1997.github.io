@@ -50,7 +50,13 @@
 
 - 用label标签实现点击文字的效果
 
+- JSON的键需要加双引号，JavaScript对象的键不需要加双引号
+
+- js里面的`JSON.parse()`可将JSON字符串转为js对象，用`JSON.stringify()`将js对象转为JSON字符串
+
 ## 后端
+
+- JavaWeb三大组件：Servlet，Filter，Listener
 
 - http的两种请求方式：1. GET：没有请求体，资源路径及参数存放在请求行中，参数有大小限制；2. POST: 有请求体，资源路径放在请求行中，参数放在请求体中，参数没有大小限制
 
@@ -127,6 +133,28 @@
 - JSP中可用EL表达式获取Cookie：`${cookie.key.value}`
 
 - 验证码展示：在img标签里面的src属性里面写一个Servlet路径，把验证码图片放到这个Servlet的response的outputstream中，刷新验证码可以给这个路径后面添加一个每次都不一样的参数，例如时间
+
+- Filter接口的核心方法是`doFilter(ServletRequest request, ServletResponse response, FilterChain chain)`，用`@WebFilter`配置Filter拦截资源的路径，Filter一般用于做一些通用的操作
+
+- Filter的执行流程：放行前逻辑（可以对request的数据进行处理，此时response还没有数据），放行`chain.doFilter(request, response)`（放行后访问对应资源资源访问完成后，还会回到Filter中执行放行后逻辑），放行后逻辑（可以对response的数据进行处理）
+
+- 过滤器链的执行顺序类似于栈
+
+- 注解配置的Filter，优先级按照过滤器类名自然排序
+
+- 实现登录功能时，跟登录和注册相关的资源要放行
+
+- Listener可以在application（ServletContext），session，request三个对象创建、销毁、增删改属性时自动执行代码，有八种Listener接口，创建一个类去实现里面的方法（会被自动调用），类上加`@WebListener`注解
+
+- 用HTML+AJAX可以替换JSP，英文AJAX可以给服务器发送请求，并获取服务器响应的数据
+
+- Axios对原生的AJAX代码进行封装，简化书写，需要引进js文件
+
+- axios会把js对象自动转为JSON字符串发给后端
+
+- 后端导入fastjson，然后就可以用`JSON.toJSONString()`把java对象转为JSON字符串，用`JSON.parseObject(String, Class)`把JSON字符串转为java对象
+
+- 
 
 ### 面试前背诵
 
