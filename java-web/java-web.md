@@ -154,8 +154,6 @@
 
 - 后端导入fastjson，然后就可以用`JSON.toJSONString()`把java对象转为JSON字符串，用`JSON.parseObject(String, Class)`把JSON字符串转为java对象
 
-- 
-
 ### 面试前背诵
 
 - HTTP请求格式，GET和POST的区别
